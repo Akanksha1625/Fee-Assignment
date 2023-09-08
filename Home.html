@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Home.css">
+</head>
+<body>
+    <section class="main">
+        <div class="container">
+            <div class="left">
+                <div class="links">
+                    <a href="./Home.html">DashBoard</a>
+                </div>
+                <div class="links">
+                    <a href="./Products.html">Products</a>
+                </div>
+            </div>
+            <div class="right" id="right">
+
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded",loadproduct);
+        const layout = document.getElementById("right");
+        function loadproduct(){
+        let products;
+        if (localStorage.getItem("products")===null) {
+            products = [{
+                Url: "https://www.jiomart.com/images/product/original/rvwczzmjhi/ola-multicolor-9ml-x-12-pieces-nail-polish-set-matte-colour-long-lasting-nail-paint-multi-color-combo-product-images-orvwczzmjhi-p594547339-2-202210170033.jpg?im=Resize=(420,420)",
+                desc: "nail paint",
+                price: "1200"
+            }];
+        }
+        else{
+            products = JSON.parse(localStorage.getItem("products"));
+        }
+        products.forEach((product)=>{
+            addlisting(product.Url,product.desc,product.price)
+        })
+        }
+        function addlisting(Url,desc,price){
+    const productadd = document.createElement("div");
+    productadd.className = "gridItem";
+    productadd.innerHTML = `
+    <div class="product">
+                        <div>
+                            <img src=${Url} alt="">
+                        </div>
+                        <div class="description">
+                            <p>${desc}</p>
+                        </div>
+                        <div class="rate">
+                            <p>$<span>${price}</span>/-</p>
+                        </div>
+                    </div>
+    `;
+    layout.prepend(productadd);
+}
+    </script>
+</body>
+</html>
